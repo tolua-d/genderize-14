@@ -63,14 +63,16 @@ class GenderizedViewSet(viewsets.ViewSet):
 
         processed_at = timezone.now().isoformat().replace('+00:00', 'Z')
 
+        data = {
+            'name': data.get('name'),
+            'gender': data.get('gender'),
+            'probability': probability,
+            'sample_size': sample_size,
+            'is_confident': is_confident,
+            'processed_at': processed_at
+        }
+
         return Response({
             'status': 'success',
-            'data': {
-                'name': data.get('name'),
-                'gender': data.get('gender'),
-                'probability': probability,
-                'sample_size': sample_size,
-                'is_confident': is_confident,
-                'processed_at': processed_at
-            }
-        })
+            'data': data
+        }, status=status.HTTP_200_OK)
