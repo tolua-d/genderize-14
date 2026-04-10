@@ -7,7 +7,7 @@ on:
   
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-  
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,6 +30,6 @@ jobs:
           curl -fsSL https://railway.app/install.sh | sh
 
       - name: Deploy to Railway
-        run: railway up
+        run: railway up --service artistic-adaptation
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
