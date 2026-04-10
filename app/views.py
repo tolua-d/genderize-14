@@ -46,22 +46,25 @@ class GenderizedViewSet(viewsets.ViewSet):
 
         gender = data.get('gender')
         probability = data.get('probability')        
-        sample_size = data.get('count')
+        count = data.get('count')
 
         # check if gender is null or sample size is 0
-        if sample_size == 0 or gender == None:
+        if count == 0 or gender == None:
             return Response({
                 'status': 'error',
                 'message': 'No prediction available for the provided name',
-            }, status=status.HTTP_404_NOT_FOUND)
+            }, status=status.HTTP_200_OK)
         
-        is_confident = False
-
         # check edge case where confidence level == True 
-        if probability >= 0.7 and sample_size >= 100:
+        if (probability >= 0.7) and (count >= 100):
             is_confident = True
+        else:
+            is_confident = False
 
         processed_at = timezone.now().isoformat().replace('+00:00', 'Z')
+
+        # renaming count to sample size
+        sample_size = count
 
         data = {
             'name': data.get('name'),
