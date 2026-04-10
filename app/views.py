@@ -57,7 +57,7 @@ class GenderizedViewSet(viewsets.ViewSet):
         
         is_confident = False
 
-        # check edge case where confidence level == True
+        # check edge case where confidence level == True 
         if probability >= 0.7 and sample_size >= 100:
             is_confident = True
 
